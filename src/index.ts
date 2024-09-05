@@ -1,8 +1,23 @@
 
+import mongoose from "mongoose";
 import { env } from "./config/envConfig";
 import { app, logger } from "./server";
 
+
+const connectToDatabase = async () => {
+  try {
+    await mongoose.connect('mongodb://localhost:27017/testt', {
+
+    });
+    logger.info("Successfully connected to MongoDB");
+  } catch (error) {
+    logger.error(`Error connecting to MongoDB: ${(error as Error).message}`);
+    process.exit(1); // Exit process with failure
+  }
+};
+
 const startServer = async () => {
+  await connectToDatabase();
 
   const server = app.listen(env.PORT, () => {
     const { NODE_ENV, HOST, PORT } = env;

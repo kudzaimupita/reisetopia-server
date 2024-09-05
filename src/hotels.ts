@@ -1,4 +1,4 @@
-export const hotels = [
+ [
   {
     "id": 2384,
     "minPrice": 252,
