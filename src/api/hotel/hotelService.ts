@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import mongoose from "mongoose";
+import type mongoose from "mongoose";
 import { ServiceResponse } from "../../common/serviceResponse";
 import { logger } from "../../server";
 import { type IFindAllFilter, buildFilter } from "./helpers/buildFilter";
@@ -19,7 +19,7 @@ export class HotelService {
   private model: mongoose.Model<IHotel>;
 
   constructor() {
-    this.model = Hotel; 
+    this.model = Hotel;
   }
   private getTranslatedHotelData(hotel: IHotel, lang: string): ITranslatedHotel {
     const availableLanguages = Object.keys(hotel.name);
@@ -30,21 +30,21 @@ export class HotelService {
       minPrice: hotel.minPrice,
       currencyCode: hotel.currencyCode,
       countryCode: hotel.countryCode,
-      name: hotel.name[fallbackLang] || '', 
-      address: hotel.address[fallbackLang] || '', 
-      city: hotel.city[fallbackLang] || '', 
-      description: hotel.description[fallbackLang] || '', 
+      name: hotel.name[fallbackLang] || "",
+      address: hotel.address[fallbackLang] || "",
+      city: hotel.city[fallbackLang] || "",
+      description: hotel.description[fallbackLang] || "",
       benefits: hotel.benefits.map((benefit) => ({
-        text: benefit.text[fallbackLang] || '', 
+        text: benefit.text[fallbackLang] || "",
       })),
       deals: hotel.deals.map((deal) => ({
         expireTime: deal.expireTime,
-        headline: deal.headline[fallbackLang] || '', 
-        details: deal.details[fallbackLang] || '', 
+        headline: deal.headline[fallbackLang] || "",
+        details: deal.details[fallbackLang] || "",
       })),
       images: hotel.images.map((image) => ({
         url: image.url,
-        caption: image.caption[fallbackLang] || '', 
+        caption: image.caption[fallbackLang] || "",
       })),
       lat: hotel.lat,
       lng: hotel.lng,
@@ -62,12 +62,7 @@ export class HotelService {
       const mongoSort = buildSort(sortBy, sortOrder);
       const { skip, limit } = buildPagination(page, pageSize);
 
-      const hotels = await this.model.find(mongoFilter)
-        .sort(mongoSort)
-        .skip(skip)
-        .limit(limit)
-        .exec();
-
+      const hotels = await this.model.find(mongoFilter).sort(mongoSort).skip(skip).limit(limit).exec();
 
       const translatedHotels = hotels.map((hotel: IHotel) => this.getTranslatedHotelData(hotel, lang));
       return ServiceResponse.success<ITranslatedHotel[]>("Hotels found", translatedHotels);

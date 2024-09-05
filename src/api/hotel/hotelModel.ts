@@ -6,7 +6,7 @@ export interface TranslatedAttribute {
   "de-DE"?: string;
   "fr-FR"?: string;
   "es-ES"?: string;
-  [key: string]: string | undefined; 
+  [key: string]: string | undefined;
 }
 
 export interface Benefit {
@@ -65,12 +65,15 @@ export interface IHotel extends Document {
 }
 
 // Define a schema for TranslatedAttribute
-const translatedAttributeSchema = new Schema<TranslatedAttribute>({
-  "en-US": String,
-  "de-DE": String,
-  "fr-FR": String,
-  "es-ES": String,
-}, { _id: false });
+const translatedAttributeSchema = new Schema<TranslatedAttribute>(
+  {
+    "en-US": String,
+    "de-DE": String,
+    "fr-FR": String,
+    "es-ES": String,
+  },
+  { _id: false },
+);
 
 const hotelSchema = new Schema<IHotel>({
   name: { type: translatedAttributeSchema, required: true },
@@ -102,4 +105,4 @@ const hotelSchema = new Schema<IHotel>({
   lng: { type: Number, required: true },
 });
 
-export const Hotel = mongoose.model<IHotel>('Hotel', hotelSchema);
+export const Hotel = mongoose.model<IHotel>("Hotel", hotelSchema);
