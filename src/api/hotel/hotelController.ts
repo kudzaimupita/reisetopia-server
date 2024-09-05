@@ -1,7 +1,7 @@
 import type { Request, RequestHandler, Response } from "express";
+import { handleServiceResponse } from "../../common/httpHandlers";
 import { validateQueryParams } from "./helpers/validateQueryParams";
 import { hotelService } from "./hotelService";
-import { handleServiceResponse } from "../../common/httpHandlers";
 
 class HotelController {
   public getHotels: RequestHandler = async (req: Request, res: Response) => {
@@ -12,7 +12,7 @@ class HotelController {
     }
     const serviceResponse = await hotelService.findAll(
       {
-        lang: req.query.lang as string || 'en-US',
+        lang: (req.query.lang as string) || "en-US",
         page: validated.pageNumber,
         pageSize: validated.pageSize,
         sortBy: validated.sortField,
@@ -25,7 +25,7 @@ class HotelController {
         distance: validated.distanceFilter,
         lat: validated.latitude,
         lng: validated.longitude,
-      }
+      },
     );
 
     return handleServiceResponse(serviceResponse, res);

@@ -1,6 +1,6 @@
 import express, { type Request, type Response, type Router } from "express";
-import { ServiceResponse } from "../../common/serviceResponse";
 import { handleServiceResponse } from "../../common/httpHandlers";
+import { ServiceResponse } from "../../common/serviceResponse";
 
 export const healthCheckRouter: Router = express.Router();
 

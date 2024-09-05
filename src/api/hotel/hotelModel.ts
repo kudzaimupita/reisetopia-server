@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { type Document, Schema } from "mongoose";
 
 export interface IHotel extends Document {
   id: number;
@@ -52,7 +52,5 @@ export interface IFindAllOptions {
   page?: number;
   pageSize?: number;
   sortBy?: string;
-  sortOrder?: 'asc' | 'desc';
+  sortOrder?: "asc" | "desc";
 }
-
-

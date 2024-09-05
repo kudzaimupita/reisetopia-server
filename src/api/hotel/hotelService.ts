@@ -1,27 +1,25 @@
 import { StatusCodes } from "http-status-codes";
 import mongoose from "mongoose";
-import { buildFilter, IFindAllFilter } from "./helpers/buildFilter";
-import { logger } from "../../server";
 import { ServiceResponse } from "../../common/serviceResponse";
+import { logger } from "../../server";
+import { type IFindAllFilter, buildFilter } from "./helpers/buildFilter";
 import { getFallbackLanguage } from "./helpers/getFallbackLanguage";
-import { IFindAllOptions, IHotel,  ITranslatedHotel } from "./hotelModel";
+import type { IFindAllOptions, IHotel, ITranslatedHotel } from "./hotelModel";
 
-
-
-const buildSort = (sortBy: string = 'name', sortOrder: 'asc' | 'desc' = 'asc'): any => ({
-  [sortBy]: sortOrder === 'asc' ? 1 : -1
+const buildSort = (sortBy = "name", sortOrder: "asc" | "desc" = "asc"): any => ({
+  [sortBy]: sortOrder === "asc" ? 1 : -1,
 });
 
-const buildPagination = (page: number = 1, pageSize: number = 10): { skip: number; limit: number } => ({
+const buildPagination = (page = 1, pageSize = 10): { skip: number; limit: number } => ({
   skip: (page - 1) * pageSize,
-  limit: pageSize
+  limit: pageSize,
 });
 
 export class HotelService {
   private collection: mongoose.Collection<IHotel>;
 
   constructor() {
-    this.collection = mongoose.connection.collection('hotels') as mongoose.Collection<IHotel>;
+    this.collection = mongoose.connection.collection("hotels") as mongoose.Collection<IHotel>;
   }
 
   private getTranslatedHotelData(hotel: IHotel, lang: string): ITranslatedHotel {
@@ -37,15 +35,15 @@ export class HotelService {
       address: hotel.address[fallbackLang],
       city: hotel.city[fallbackLang],
       description: hotel.description[fallbackLang],
-      benefits: hotel.benefits.map(benefit => ({
+      benefits: hotel.benefits.map((benefit) => ({
         text: benefit.text[fallbackLang],
       })),
-      deals: hotel.deals.map(deal => ({
+      deals: hotel.deals.map((deal) => ({
         expireTime: deal.expireTime,
         headline: deal.headline[fallbackLang],
         details: deal.details[fallbackLang],
       })),
-      images: hotel.images.map(image => ({
+      images: hotel.images.map((image) => ({
         url: image.url,
         caption: image.caption[fallbackLang],
       })),
@@ -56,16 +54,10 @@ export class HotelService {
 
   async findAll(
     options: IFindAllOptions = {},
-    filter: IFindAllFilter = {}
+    filter: IFindAllFilter = {},
   ): Promise<ServiceResponse<ITranslatedHotel[] | null>> {
     try {
-      const {
-        lang = 'en-US',
-        page = 1,
-        pageSize = 10,
-        sortBy = 'name',
-        sortOrder = 'asc'
-      } = options;
+      const { lang = "en-US", page = 1, pageSize = 10, sortBy = "name", sortOrder = "asc" } = options;
 
       const mongoFilter = buildFilter(filter);
       const mongoSort = buildSort(sortBy, sortOrder);
@@ -85,7 +77,7 @@ export class HotelService {
       return ServiceResponse.failure(
         "An error occurred while retrieving hotels.",
         null,
-        StatusCodes.INTERNAL_SERVER_ERROR
+        StatusCodes.INTERNAL_SERVER_ERROR,
       );
     }
   }

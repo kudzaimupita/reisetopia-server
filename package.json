@@ -5,9 +5,13 @@
   "author": "reisetopia",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon src/index.ts",
+    "dev": "nodemon src/index.ts pino-pretty",
     "build": "npx tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "prepare": "husky",
+    "lint": "biome check src/",
+    "lint:fix": "biome check src/ --fix",
+    "format": "biome format src/"
   },
   "dependencies": {
     "@types/mongoose": "^5.11.97",
@@ -23,11 +27,19 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.8.3",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/node": "^20.12.11",
+    "husky": "^9.1.5",
+    "lint-staged": "^15.2.10",
     "nodemon": "^3.1.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
+  },
+  "lint-staged": {
+    "*.{js,ts,cjs,mjs,d.cts,d.mts,json,jsonc}": [
+      "biome check --apply --no-errors-on-unmatched"
+    ]
   }
 }
