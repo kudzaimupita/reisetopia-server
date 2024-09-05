@@ -34,7 +34,7 @@ https://pi8fwbp2e5.execute-api.us-east-1.amazonaws.com/v1/recruiting/hotels
 #### TODO: 
 
 - Introduce swagger ui for api documentation
-- Add unit tests for some utils and integration tests
+- Continue with unit tests for some utils and integration tests
 - Fix response payload(ServiceResponse)
 
 🎉 Thanks!
