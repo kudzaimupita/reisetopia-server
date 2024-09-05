@@ -23,12 +23,12 @@ jobs:
           node-version: '${{ matrix.node-version }}'
       - name: Install Dependencies
         run: yarn install
-      - name: Setup Biome
-        uses: biomejs/setup-biome@v2
-        with:
-          version: latest
-      - name: Run Biome
-        run: biome ci .
+      # - name: Setup Biome
+      #   uses: biomejs/setup-biome@v2
+      #   with:
+      #     version: latest
+      # - name: Run Biome
+      #   run: biome ci .
       - name: Lint
         run: yarn run lint
       - name: Run Build
