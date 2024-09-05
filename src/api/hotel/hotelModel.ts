@@ -1,7 +1,6 @@
 import mongoose, { type Document, Schema } from "mongoose";
 
-// Define the TranslatedAttribute interface
-export interface TranslatedAttribute {
+export interface LocalizedText {
   "en-US"?: string;
   "de-DE"?: string;
   "fr-FR"?: string;
@@ -53,19 +52,19 @@ export interface IHotel extends Document {
   minPrice: number;
   currencyCode: string;
   countryCode: string;
-  name: TranslatedAttribute;
-  address: TranslatedAttribute;
-  city: TranslatedAttribute;
-  description: TranslatedAttribute;
-  benefits: Array<{ text: TranslatedAttribute }>;
-  deals: Array<{ expireTime: Date; headline: TranslatedAttribute; details: TranslatedAttribute }>;
-  images: Array<{ url: string; caption: TranslatedAttribute }>;
+  name: LocalizedText;
+  address: LocalizedText;
+  city: LocalizedText;
+  description: LocalizedText;
+  benefits: Array<{ text: LocalizedText }>;
+  deals: Array<{ expireTime: Date; headline: LocalizedText; details: LocalizedText }>;
+  images: Array<{ url: string; caption: LocalizedText }>;
   lat: number;
   lng: number;
 }
 
-// Define a schema for TranslatedAttribute
-const translatedAttributeSchema = new Schema<TranslatedAttribute>(
+// Define a schema for LocalizedText
+const LocalizedTextSchema = new Schema<LocalizedText>(
   {
     "en-US": String,
     "de-DE": String,
@@ -76,29 +75,29 @@ const translatedAttributeSchema = new Schema<TranslatedAttribute>(
 );
 
 const hotelSchema = new Schema<IHotel>({
-  name: { type: translatedAttributeSchema, required: true },
+  name: { type: LocalizedTextSchema, required: true },
   minPrice: { type: Number, required: true },
   currencyCode: { type: String, required: true },
   countryCode: { type: String, required: true },
-  address: { type: translatedAttributeSchema, required: true },
-  city: { type: translatedAttributeSchema, required: true },
-  description: { type: translatedAttributeSchema, required: true },
+  address: { type: LocalizedTextSchema, required: true },
+  city: { type: LocalizedTextSchema, required: true },
+  description: { type: LocalizedTextSchema, required: true },
   benefits: [
     {
-      text: { type: translatedAttributeSchema, required: true },
+      text: { type: LocalizedTextSchema, required: true },
     },
   ],
   deals: [
     {
       expireTime: { type: Date, required: true },
-      headline: { type: translatedAttributeSchema, required: true },
-      details: { type: translatedAttributeSchema, required: true },
+      headline: { type: LocalizedTextSchema, required: true },
+      details: { type: LocalizedTextSchema, required: true },
     },
   ],
   images: [
     {
       url: { type: String, required: true },
-      caption: { type: translatedAttributeSchema, required: true },
+      caption: { type: LocalizedTextSchema, required: true },
     },
   ],
   lat: { type: Number, required: true },
