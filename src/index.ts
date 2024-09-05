@@ -1,16 +1,5 @@
-import mongoose from "mongoose";
 import { env } from "./config/envConfig";
-import { app, logger } from "./server";
-
-const connectToDatabase = async () => {
-  try {
-    await mongoose.connect(env.MONGO_URI, {});
-    logger.info("Successfully connected to MongoDB");
-  } catch (error) {
-    logger.error(`Error connecting to MongoDB: ${(error as Error).message}`);
-    process.exit(1); // Exit process with failure
-  }
-};
+import { app, connectToDatabase, logger } from "./server";
 
 const startServer = async () => {
   await connectToDatabase();
