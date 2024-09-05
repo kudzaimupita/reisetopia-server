@@ -12,7 +12,8 @@
     "lint": "biome check src/",
     "lint:fix": "biome check src/ --fix",
     "format": "biome format src/",
-    "test": "vitest run"
+    "test": "vitest run",
+    "deploy": "serverless deploy"
   },
   "dependencies": {
     "@types/mongoose": "^5.11.97",
@@ -36,6 +37,7 @@
     "husky": "^9.1.5",
     "lint-staged": "^15.2.10",
     "nodemon": "^3.1.0",
+    "serverless": "^4.2.5",
     "supertest": "^7.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5",

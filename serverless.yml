@@ -1,0 +1,20 @@
+service: reisetopia-api
+frameworkVersion: '3'
+provider:
+  name: aws
+  runtime: nodejs18.x
+  tracing:
+    lambda: true
+  ecr:
+    images:
+      reisetopia-api:
+        path: ./
+useDotenv: true
+functions:
+  reisetopia-api:
+    image:
+      name: reisetopia-api
+    events:
+      - httpApi: '*'
+package:
+  individually: true
