@@ -1,0 +1,37 @@
+# Reisetopia challenge
+
+``` code
+Hello! 🙌 
+This is an assessment I did for reisotopia ⭐️ Enjoy. 
+``` 
+
+## 🛠️ Getting Started
+
+#### Step 1: 🚀 Initial Setup
+
+- Clone the repository
+- Navigate: `cd into repo`
+- Install dependencies: `yarn install`
+
+#### Step 2: ⚙️ Environment Configuration
+
+- Create `.env`: Copy `.env.example` to `.env`
+- Update `.env`: Fill in necessary environment variables
+
+- Pre-populate or seed your mongo db collection(`hotels`) with the hotels.json data
+
+#### Step 3: 🏃‍♂️ Running the Project
+
+- Dev Server: `yarn run dev`
+- Build: `yarn run build`
+- Production Mode: Set `.env` to `NODE_ENV="production"` then `yarn run build && yarn run start`
+
+#### TODO: 
+
+- Introduce swagger ui for api documentation
+- Add unit tests for some utils and integration tests
+- Setup ci/cd pipeline(github actions)
+- If time allows deploy to a cloud provider(aws) as lambda using serverless framework
+- Fix response payload(ServiceResponse)
+
+🎉 Thanks!
