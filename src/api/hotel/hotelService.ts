@@ -71,7 +71,7 @@ export class HotelService {
       const totalPages = Math.ceil(totalCount / limit);
       const translatedHotels = hotels.map((hotel: IHotel) => this.getTranslatedHotelData(hotel, lang));
 
-      return ServiceResponse.success<any>("Hotels found", {
+      return ServiceResponse.success<any>({
         totalPages,
         hotels: translatedHotels,
       });
