@@ -1,4 +1,6 @@
-FROM public.ecr.aws/lambda/nodejs:18
+FROM public.ecr.aws/lambda/nodejs:16
+
+RUN npm install -g yarn
 
 COPY package.json yarn.lock ./
 
