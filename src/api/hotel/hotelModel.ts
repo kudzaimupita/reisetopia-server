@@ -30,16 +30,12 @@ export interface ITranslatedHotel {
   id: number;
   minPrice: number;
   currencyCode: string;
-  countryCode: string;
   name: string;
   address: string;
   city: string;
   description: string;
-  benefits: Benefit[];
   firstDeal: Deal | null;
   firstImage: Image | null;
-  lat: number;
-  lng: number;
   distanceToCenterKm: number;
 }
 export interface IFindAllOptions {

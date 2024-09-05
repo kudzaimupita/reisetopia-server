@@ -30,14 +30,10 @@ export class HotelService {
       id: hotel.id,
       minPrice: hotel.minPrice,
       currencyCode: hotel.currencyCode,
-      countryCode: hotel.countryCode,
       name: hotel.name[fallbackLang] || "",
       address: hotel.address[fallbackLang] || "",
       city: hotel.city[fallbackLang] || "",
       description: hotel.description[fallbackLang] || "",
-      benefits: hotel.benefits.map((benefit) => ({
-        text: benefit.text[fallbackLang] || "",
-      })),
       firstDeal:
         hotel.deals.length > 0
           ? {
@@ -54,8 +50,6 @@ export class HotelService {
             }
           : null,
       distanceToCenterKm: haversineDistance(hotel.lat, hotel.lng, BERLIN_LAT, BERLIN_LNG),
-      lat: hotel.lat,
-      lng: hotel.lng,
     };
   }
 
