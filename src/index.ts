@@ -7,7 +7,6 @@ import { app, logger } from "./server";
 const connectToDatabase = async () => {
   try {
     await mongoose.connect('mongodb://localhost:27017/testt', {
-
     });
     logger.info("Successfully connected to MongoDB");
   } catch (error) {
