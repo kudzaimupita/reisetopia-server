@@ -17,7 +17,6 @@ interface QueryParams {
 export function validateQueryParams(query: QueryParams) {
   const errors: string[] = [];
 
-  // Default values
   const defaultPage = 1;
   const defaultLimit = 10;
   const defaultSortBy = 'name';
