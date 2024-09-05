@@ -5,6 +5,11 @@ Hello! 🙌
 This is an assessment I did for reisotopia ⭐️ Enjoy. 
 ``` 
 
+#### Deployed the rest-api as a lambda on aws
+
+https://pi8fwbp2e5.execute-api.us-east-1.amazonaws.com/health-check
+https://pi8fwbp2e5.execute-api.us-east-1.amazonaws.com/v1/recruiting/hotels
+
 ## 🛠️ Getting Started
 
 #### Step 1: 🚀 Initial Setup
