@@ -10,13 +10,13 @@ class HotelController {
     if (errors.length > 0) {
       return res.status(400).json({ errors });
     }
+
     const serviceResponse = await hotelService.findAll(
       {
         lang: (req.query.lang as string) || "en-US",
         page: validated.pageNumber,
         pageSize: validated.pageSize,
-        sortBy: validated.sortField,
-        sortOrder: validated.sortDirection,
+        sort: validated.sort,
       },
       {
         nameFilter: validated.nameFilter,

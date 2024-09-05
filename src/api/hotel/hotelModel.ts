@@ -43,8 +43,7 @@ export interface IFindAllOptions {
   lang?: string;
   page?: number;
   pageSize?: number;
-  sortBy?: string;
-  sortOrder?: "asc" | "desc";
+  sort?: string;
 }
 
 export interface IHotel extends Document {
@@ -57,7 +56,11 @@ export interface IHotel extends Document {
   city: LocalizedText;
   description: LocalizedText;
   benefits: Array<{ text: LocalizedText }>;
-  deals: Array<{ expireTime: Date; headline: LocalizedText; details: LocalizedText }>;
+  deals: Array<{
+    expireTime: Date;
+    headline: LocalizedText;
+    details: LocalizedText;
+  }>;
   images: Array<{ url: string; caption: LocalizedText }>;
   lat: number;
   lng: number;

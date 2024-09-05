@@ -3,12 +3,9 @@ import type mongoose from "mongoose";
 import { ServiceResponse } from "../../common/serviceResponse";
 import { logger } from "../../server";
 import { type IFindAllFilter, buildFilter } from "./helpers/buildFilter";
+import { buildSort } from "./helpers/buildSort";
 import { getFallbackLanguage } from "./helpers/getFallbackLanguage";
 import { Hotel, type IFindAllOptions, type IHotel, type ITranslatedHotel } from "./hotelModel";
-
-const buildSort = (sortBy = "name", sortOrder: "asc" | "desc" = "asc"): any => ({
-  [sortBy]: sortOrder === "asc" ? 1 : -1,
-});
 
 const buildPagination = (page = 1, pageSize = 10): { skip: number; limit: number } => ({
   skip: (page - 1) * pageSize,
@@ -56,10 +53,11 @@ export class HotelService {
     filter: IFindAllFilter = {},
   ): Promise<ServiceResponse<ITranslatedHotel[] | null>> {
     try {
-      const { lang = "en-US", page = 1, pageSize = 10, sortBy = "name", sortOrder = "asc" } = options;
+      const { lang = "en-US", page = 1, pageSize = 10, sort = "" } = options;
 
       const mongoFilter = buildFilter(filter);
-      const mongoSort = buildSort(sortBy, sortOrder);
+      const mongoSort = buildSort(sort);
+      console.log(mongoSort);
       const { skip, limit } = buildPagination(page, pageSize);
 
       const hotels = await this.model.find(mongoFilter).sort(mongoSort).skip(skip).limit(limit).exec();

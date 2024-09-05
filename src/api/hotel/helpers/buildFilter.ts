@@ -18,10 +18,12 @@ export const buildFilter = (filter: IFindAllFilter): any => {
   }
 
   if (filter.nameFilter) {
-    query.name = {
-      $regex: `.*${filter.nameFilter}.*`,
-      $options: "i",
-    };
+    query.$or = [
+      { "name.en-US": { $regex: `.*${filter.nameFilter}.*`, $options: "i" } },
+      { "name.de-DE": { $regex: `.*${filter.nameFilter}.*`, $options: "i" } },
+      { "name.es-ES": { $regex: `.*${filter.nameFilter}.*`, $options: "i" } },
+      { "name.fr-FR": { $regex: `.*${filter.nameFilter}.*`, $options: "i" } },
+    ];
   }
 
   if (filter.distance && filter.lat !== undefined && filter.lng !== undefined) {
