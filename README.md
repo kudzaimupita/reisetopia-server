@@ -30,8 +30,6 @@ This is an assessment I did for reisotopia ⭐️ Enjoy.
 
 - Introduce swagger ui for api documentation
 - Add unit tests for some utils and integration tests
-- Setup ci/cd pipeline(github actions)
-- If time allows deploy to a cloud provider(aws) as lambda using serverless framework
 - Fix response payload(ServiceResponse)
 
 🎉 Thanks!
