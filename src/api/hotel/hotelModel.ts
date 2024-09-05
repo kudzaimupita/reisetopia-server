@@ -7,7 +7,10 @@ export interface LocalizedText {
   "es-ES"?: string;
   [key: string]: string | undefined;
 }
-
+export interface IFindAllResult {
+  totalCount: number;
+  hotels: ITranslatedHotel[];
+}
 export interface Benefit {
   text: string;
 }
@@ -33,12 +36,11 @@ export interface ITranslatedHotel {
   city: string;
   description: string;
   benefits: Benefit[];
-  deals: Deal[];
-  images: Image[];
+  firstDeal: Deal | null;
+  firstImage: Image | null;
   lat: number;
   lng: number;
 }
-
 export interface IFindAllOptions {
   lang?: string;
   page?: number;
@@ -73,7 +75,7 @@ const LocalizedTextSchema = new Schema<LocalizedText>(
     "fr-FR": String,
     "es-ES": String,
   },
-  { _id: false },
+  { _id: false }
 );
 
 const hotelSchema = new Schema<IHotel>({
