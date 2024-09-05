@@ -1,21 +1,27 @@
-import dotenv from "dotenv";
-import express, { Request, Response } from "express";
-// import { hotels } from './hotels';
 
-dotenv.config();
+import { env } from "./config/envConfig";
+import { app, logger } from "./server";
 
-const port = process.env.PORT;
-if (!port) {
-  console.error("Missing environment variable 'PORT'!");
-  process.exit(1);
-}
+const startServer = async () => {
 
-const app = express();
+  const server = app.listen(env.PORT, () => {
+    const { NODE_ENV, HOST, PORT } = env;
+    logger.info(`Server (${NODE_ENV}) running on port http://${HOST}:${PORT}`);
+  });
 
-app.get("/", (req: Request, res: Response) => {
-  res.send('Hello World');
-});
+  const onCloseSignal = () => {
+    logger.info("SIGINT received, shutting down");
+    server.close(async () => {
+      logger.info("Server closed");
+      process.exit();
+    });
+    setTimeout(async () => {
+      process.exit(1); // Force shutdown after 10s
+    }, 10000).unref();
+  };
 
-app.listen(port, () => {
-  console.log(`Backend server running at http://localhost:${port}.`);
-});
+  process.on("SIGINT", onCloseSignal);
+  process.on("SIGTERM", onCloseSignal);
+};
+
+startServer();
