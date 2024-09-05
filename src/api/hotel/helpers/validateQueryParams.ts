@@ -30,7 +30,6 @@ export function validateQueryParams(query: QueryParams) {
   const pageNumber = Number.parseInt(query.page as string, 10);
   const validPageNumber = Number.isNaN(pageNumber) || pageNumber <= 0 ? defaultPage : pageNumber;
 
-
   const pageSize = Number.parseInt(query.limit as string, 10);
   const validPageSize = Number.isNaN(pageSize) || pageSize <= 0 ? defaultLimit : pageSize;
 
