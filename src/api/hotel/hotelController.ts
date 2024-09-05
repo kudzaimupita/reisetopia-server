@@ -29,7 +29,6 @@ class HotelController {
     );
 
     return handleServiceResponse(serviceResponse, res);
-    // res.send(serviceResponse)
   };
 }
 

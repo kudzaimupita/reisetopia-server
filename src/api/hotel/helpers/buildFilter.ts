@@ -4,7 +4,7 @@ export interface IFindAllFilter {
   maxPrice?: number;
   lat?: number;
   lng?: number;
-  distance?: number; // in kilometers
+  distance?: number;
 }
 
 export const buildFilter = (filter: IFindAllFilter): any => {
@@ -27,7 +27,7 @@ export const buildFilter = (filter: IFindAllFilter): any => {
   if (filter.distance && filter.lat !== undefined && filter.lng !== undefined) {
     query.location = {
       $geoWithin: {
-        $centerSphere: [[filter.lng, filter.lat], filter.distance / 6371], // distance in kilometers
+        $centerSphere: [[filter.lng, filter.lat], filter.distance / 6371],
       },
     };
   }

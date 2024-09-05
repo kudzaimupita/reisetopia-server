@@ -63,7 +63,6 @@ export interface IHotel extends Document {
   lng: number;
 }
 
-// Define a schema for LocalizedText
 const LocalizedTextSchema = new Schema<LocalizedText>(
   {
     "en-US": String,
