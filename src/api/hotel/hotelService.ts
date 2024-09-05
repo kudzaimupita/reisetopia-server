@@ -5,17 +5,9 @@ import { logger } from "../../server";
 import { type IFindAllFilter, buildFilter } from "./helpers/buildFilter";
 import { buildSort } from "./helpers/buildSort";
 import { getFallbackLanguage } from "./helpers/getFallbackLanguage";
-import {
-  Hotel,
-  type IFindAllOptions,
-  type IHotel,
-  type ITranslatedHotel,
-} from "./hotelModel";
+import { Hotel, type IFindAllOptions, type IHotel, type ITranslatedHotel } from "./hotelModel";
 
-const buildPagination = (
-  page = 1,
-  pageSize = 10
-): { skip: number; limit: number } => ({
+const buildPagination = (page = 1, pageSize = 10): { skip: number; limit: number } => ({
   skip: (page - 1) * pageSize,
   limit: pageSize,
 });
@@ -26,10 +18,7 @@ export class HotelService {
   constructor() {
     this.model = Hotel;
   }
-  private getTranslatedHotelData(
-    hotel: IHotel,
-    lang: string
-  ): ITranslatedHotel {
+  private getTranslatedHotelData(hotel: IHotel, lang: string): ITranslatedHotel {
     const availableLanguages = Object.keys(hotel.name);
     const fallbackLang = getFallbackLanguage(availableLanguages, lang);
 
@@ -67,7 +56,7 @@ export class HotelService {
 
   async findAll(
     options: IFindAllOptions = {},
-    filter: IFindAllFilter = {}
+    filter: IFindAllFilter = {},
   ): Promise<ServiceResponse<ITranslatedHotel[] | null>> {
     try {
       const { lang = "en-US", page = 1, pageSize = 10, sort = "" } = options;
@@ -76,18 +65,11 @@ export class HotelService {
       const mongoSort = buildSort(sort);
       const { skip, limit } = buildPagination(page, pageSize);
 
-      const hotels = await this.model
-        .find(mongoFilter)
-        .sort(mongoSort)
-        .skip(skip)
-        .limit(limit)
-        .exec();
+      const hotels = await this.model.find(mongoFilter).sort(mongoSort).skip(skip).limit(limit).exec();
 
       const totalCount = await this.model.countDocuments(mongoFilter).exec();
       const totalPages = Math.ceil(totalCount / limit);
-      const translatedHotels = hotels.map((hotel: IHotel) =>
-        this.getTranslatedHotelData(hotel, lang)
-      );
+      const translatedHotels = hotels.map((hotel: IHotel) => this.getTranslatedHotelData(hotel, lang));
 
       return ServiceResponse.success<any>("Hotels found", {
         totalPages,
@@ -99,7 +81,7 @@ export class HotelService {
       return ServiceResponse.failure(
         "An error occurred while retrieving hotels.",
         null,
-        StatusCodes.INTERNAL_SERVER_ERROR
+        StatusCodes.INTERNAL_SERVER_ERROR,
       );
     }
   }

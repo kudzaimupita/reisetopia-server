@@ -75,7 +75,7 @@ const LocalizedTextSchema = new Schema<LocalizedText>(
     "fr-FR": String,
     "es-ES": String,
   },
-  { _id: false }
+  { _id: false },
 );
 
 const hotelSchema = new Schema<IHotel>({

@@ -7,31 +7,18 @@ export class ServiceResponse<T = null> {
   readonly error: string;
   readonly statusCode: number;
 
-  private constructor(
-    success: boolean,
-    error: string,
-    result: T,
-    statusCode: number
-  ) {
+  private constructor(success: boolean, error: string, result: T, statusCode: number) {
     this.success = success;
     this.error = error;
     this.result = result;
     this.statusCode = statusCode;
   }
 
-  static success<T>(
-    error: string,
-    result: T,
-    statusCode: number = StatusCodes.OK
-  ) {
+  static success<T>(error: string, result: T, statusCode: number = StatusCodes.OK) {
     return new ServiceResponse(true, "", result, statusCode);
   }
 
-  static failure<T>(
-    error: string,
-    result: T,
-    statusCode: number = StatusCodes.BAD_REQUEST
-  ) {
+  static failure<T>(error: string, result: T, statusCode: number = StatusCodes.BAD_REQUEST) {
     return new ServiceResponse(false, error, result, statusCode);
   }
 }
