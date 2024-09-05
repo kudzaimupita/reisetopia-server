@@ -1,9 +1,9 @@
 # Reisetopia challenge
 
-``` code
-Hello! 🙌 
-This is an assessment I did for reisotopia ⭐️ Enjoy. 
-``` 
+```code
+Hello! 🙌
+This is an assessment I did for reisotopia ⭐️ Enjoy.
+```
 
 #### Deployed the rest-api as a lambda on aws
 
@@ -34,10 +34,9 @@ https://pi8fwbp2e5.execute-api.us-east-1.amazonaws.com/v1/recruiting/hotels
 - Build: `yarn run build`
 - Production Mode: Set `.env` to `NODE_ENV="production"` then `yarn run build && yarn run start`
 
-#### TODO: 
+#### TODO:
 
 - Introduce swagger ui for api documentation
 - Continue with unit tests for some utils and integration tests
-- Fix response payload(ServiceResponse)
 
 🎉 Thanks!

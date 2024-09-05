@@ -5,7 +5,11 @@ import { logger } from "../../server";
 import { type IFindAllFilter, buildFilter } from "./helpers/buildFilter";
 import { buildSort } from "./helpers/buildSort";
 import { getFallbackLanguage } from "./helpers/getFallbackLanguage";
+import { haversineDistance } from "./helpers/haversineDistance";
 import { Hotel, type IFindAllOptions, type IHotel, type ITranslatedHotel } from "./hotelModel";
+
+const BERLIN_LAT = 52.520008;
+const BERLIN_LNG = 13.404954;
 
 const buildPagination = (page = 1, pageSize = 10): { skip: number; limit: number } => ({
   skip: (page - 1) * pageSize,
@@ -41,14 +45,15 @@ export class HotelService {
               headline: hotel.deals[0].headline[fallbackLang] || "",
               details: hotel.deals[0].details[fallbackLang] || "",
             }
-          : null, // Return first deal if available, otherwise null
+          : null,
       firstImage:
         hotel.images.length > 0
           ? {
               url: hotel.images[0].url,
               caption: hotel.images[0].caption[fallbackLang] || "",
             }
-          : null, // Return first image if available, otherwise null
+          : null,
+      distanceToCenterKm: haversineDistance(hotel.lat, hotel.lng, BERLIN_LAT, BERLIN_LNG),
       lat: hotel.lat,
       lng: hotel.lng,
     };

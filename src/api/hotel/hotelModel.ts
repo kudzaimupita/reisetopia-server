@@ -40,6 +40,7 @@ export interface ITranslatedHotel {
   firstImage: Image | null;
   lat: number;
   lng: number;
+  distanceToCenterKm: number;
 }
 export interface IFindAllOptions {
   lang?: string;

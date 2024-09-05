@@ -16,7 +16,7 @@ const startServer = async () => {
       process.exit();
     });
     setTimeout(async () => {
-      process.exit(1); // Force shutdown after 10s
+      process.exit(1);
     }, 10000).unref();
   };
 
