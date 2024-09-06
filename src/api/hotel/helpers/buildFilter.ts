@@ -10,13 +10,15 @@ export interface IFindAllFilter {
 export const buildFilter = (filter: IFindAllFilter): any => {
   const query: any = {};
 
-  if (filter.minPrice) {
-    query.minPrice = { $gte: filter.minPrice };
+  if (filter.minPrice !== undefined || filter.maxPrice !== undefined) {
+    query.minPrice = {};
+    if (filter.minPrice !== undefined) {
+      query.minPrice.$gte = filter.minPrice;
+    }
+    if (filter.maxPrice !== undefined) {
+      query.minPrice.$lte = filter.maxPrice;
+    }
   }
-  if (filter.maxPrice) {
-    query.maxPrice = { $lte: filter.maxPrice };
-  }
-
   if (filter.nameFilter) {
     query.$or = [
       { "name.en-US": { $regex: `.*${filter.nameFilter}.*`, $options: "i" } },

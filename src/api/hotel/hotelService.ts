@@ -63,7 +63,6 @@ export class HotelService {
       const mongoFilter = buildFilter(filter);
       const mongoSort = buildSort(sort);
       const { skip, limit } = buildPagination(page, pageSize);
-
       const hotels = await this.model.find(mongoFilter).sort(mongoSort).skip(skip).limit(limit).exec();
 
       const totalCount = await this.model.countDocuments(mongoFilter).exec();

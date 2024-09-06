@@ -1,5 +1,3 @@
-import { Request } from "express";
-
 interface QueryParams {
   lang?: string;
   pageNumber?: string;
