@@ -3,18 +3,16 @@ import type mongoose from "mongoose";
 import { ServiceResponse } from "../../common/serviceResponse";
 import { logger } from "../../server";
 import { type IFindAllFilter, buildFilter } from "./helpers/buildFilter";
+import { buildPagination } from "./helpers/buildPagination";
 import { buildSort } from "./helpers/buildSort";
 import { getFallbackLanguage } from "./helpers/getFallbackLanguage";
+import { getFirstDeal } from "./helpers/getFirstDeal";
+import { getFirstImage } from "./helpers/getFirstImage";
 import { haversineDistance } from "./helpers/haversineDistance";
 import { Hotel, type IFindAllOptions, type IHotel, type ITranslatedHotel } from "./hotelModel";
 
 const BERLIN_LAT = 52.520008;
 const BERLIN_LNG = 13.404954;
-
-const buildPagination = (page = 1, pageSize = 10): { skip: number; limit: number } => ({
-  skip: (page - 1) * pageSize,
-  limit: pageSize,
-});
 
 export class HotelService {
   private model: mongoose.Model<IHotel>;
@@ -34,21 +32,8 @@ export class HotelService {
       address: hotel.address[fallbackLang] || "",
       city: hotel.city[fallbackLang] || "",
       description: hotel.description[fallbackLang] || "",
-      firstDeal:
-        hotel.deals.length > 0
-          ? {
-              expireTime: hotel.deals[0].expireTime,
-              headline: hotel.deals[0].headline[fallbackLang] || "",
-              details: hotel.deals[0].details[fallbackLang] || "",
-            }
-          : null,
-      firstImage:
-        hotel.images.length > 0
-          ? {
-              url: hotel.images[0].url,
-              caption: hotel.images[0].caption[fallbackLang] || "",
-            }
-          : null,
+      firstDeal: getFirstDeal(hotel, fallbackLang),
+      firstImage: getFirstImage(hotel, fallbackLang),
       distanceToCenterKm: haversineDistance(hotel.lat, hotel.lng, BERLIN_LAT, BERLIN_LNG),
     };
   }
@@ -63,6 +48,7 @@ export class HotelService {
       const mongoFilter = buildFilter(filter);
       const mongoSort = buildSort(sort);
       const { skip, limit } = buildPagination(page, pageSize);
+
       const hotels = await this.model.find(mongoFilter).sort(mongoSort).skip(skip).limit(limit).exec();
 
       const totalCount = await this.model.countDocuments(mongoFilter).exec();

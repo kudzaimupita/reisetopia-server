@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 import { pino } from "pino";
 import { healthCheckRouter } from "./api/healthCheck/healthCheckRouter";
 import { hotelRouter } from "./api/hotel/hotelRouter";
-import errorHandler from "./common/middleware/errorHandler";
+import errorHandler from "./common/errorHandler";
 import requestLogger from "./common/requestLogger";
 import { env } from "./config/envConfig";
 
