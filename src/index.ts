@@ -1,5 +1,6 @@
+import { connectToDatabase } from "./config/connectDB";
 import { env } from "./config/envConfig";
-import { app, connectToDatabase, logger } from "./server";
+import { app, logger } from "./server";
 
 const startServer = async () => {
   await connectToDatabase();

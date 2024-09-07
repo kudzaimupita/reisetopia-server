@@ -1,10 +1,13 @@
 import dotenv from "dotenv";
-import { cleanEnv, host, num, port, str, testOnly } from "envalid";
+import { cleanEnv, host, port, str, testOnly } from "envalid";
 
 dotenv.config();
 
 export const env = cleanEnv(process.env, {
-  NODE_ENV: str({ devDefault: testOnly("test"), choices: ["development", "production", "test"] }),
+  NODE_ENV: str({
+    devDefault: testOnly("test"),
+    choices: ["development", "production", "test"],
+  }),
   HOST: host({ devDefault: testOnly("localhost") }),
   MONGO_URI: str({ devDefault: testOnly("mongodb://localhost:27017/testt") }),
   PORT: port({ devDefault: testOnly(3000) }),

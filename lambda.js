@@ -1,14 +1,15 @@
-const serverless = require('serverless-http');
-const mongoose = require('mongoose');
-const { app, connectToDatabase, logger } = require('./dist/server'); 
+const serverless = require("serverless-http");
+const mongoose = require("mongoose");
+const { app, logger } = require("./dist/server");
+const { connectToDatabase } = require("./dist/config/connectDB");
 
 const connectToDbHandler = async () => {
   if (mongoose.connection.readyState === 0) {
     try {
       await connectToDatabase();
     } catch (error) {
-      logger.error(`Error connecting to MongoDB: ${(error).message}`);
-      throw new Error(`Database connection error: ${(error).message}`);
+      logger.error(`Error connecting to MongoDB: ${error.message}`);
+      throw new Error(`Database connection error: ${error.message}`);
     }
   }
 };
