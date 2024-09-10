@@ -1,7 +1,7 @@
-import { ServiceResponse } from "@/common/serviceResponse";
 import type { Request, RequestHandler, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { handleServiceResponse } from "../../common/httpHandlers";
+import { ServiceResponse } from "../../common/serviceResponse";
 import { validateQueryParams } from "./helpers/validateQueryParams";
 import { hotelService } from "./hotelService";
 
