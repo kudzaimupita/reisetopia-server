@@ -1,4 +1,6 @@
+import { ServiceResponse } from "@/common/serviceResponse";
 import type { Request, RequestHandler, Response } from "express";
+import { StatusCodes } from "http-status-codes";
 import { handleServiceResponse } from "../../common/httpHandlers";
 import { validateQueryParams } from "./helpers/validateQueryParams";
 import { hotelService } from "./hotelService";
@@ -8,7 +10,7 @@ class HotelController {
     const { errors, validated } = validateQueryParams(req.query);
 
     if (errors.length > 0) {
-      return res.status(400).json({ errors });
+      return ServiceResponse.failure("Error validating query params", null, StatusCodes.BAD_REQUEST);
     }
 
     const serviceResponse = await hotelService.findAll(
